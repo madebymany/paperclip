@@ -568,6 +568,11 @@ class AttachmentTest < Test::Unit::TestCase
         assert_equal File.expand_path("./test/../tmp/avatars/dummies/original/#{@instance.id}/5k.old.png"), File.expand_path(@attachment.path)
       end
 
+      should "escape filename for URL" do
+        @attachment.stubs(:instance_read).with(:file_name).returns("with space.png")
+        assert_match "/avatars/#{@instance.id}/blah/with+space.png", @attachment.url(:blah)
+      end
+
       context "when expecting three styles" do
         setup do
           styles = {:styles => { :large  => ["400x400", :png],
