@@ -119,7 +119,7 @@ module Paperclip
       # This is a bit of a hack: we really want only filename to be escaped,
       # but to change the behaviour of the filename method would cause
       # undesirable side-effects.
-      url.gsub!(%r{[^/]+$}){ CGI.escape($&) }
+      url.sub!(%r{[^/]+$}){ CGI.escape($&) }
 
       use_timestamp && updated_at ? [url, updated_at].compact.join(url.include?("?") ? "&" : "?") : url
     end
